@@ -1,0 +1,16 @@
+user:
+  signIn:
+    username:
+      $minLength: 5
+      $maxLength: 20
+    password:
+      $minLength: 5
+      $maxLength: 20
+
+  signUp:
+    username:
+      $minLength: 5
+      $maxLength: 20
+    password:
+      $minLength: 5
+      $maxLength: 20

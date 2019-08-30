@@ -1,0 +1,26 @@
+server:
+  env: dev
+  siteName: 消息中心
+  apiPrefix: /api/v1
+  port: 9090
+  tokenMaxAge: 3600
+
+mysql:
+  dialect      : mysql
+  database     : go-gin-web
+  user         : dev
+  password     : test
+  charset      : utf8mb4
+  host         : 127.0.0.1
+  port         : 3306
+  maxIdleConns : 5
+  maxOpenConns : 10
+  url: ""
+
+redis:
+  host      : 127.0.0.1
+  port      : 6379,
+  password  : dev,
+  maxIdle   : 3,
+  maxActive : 5
+  url: ""
