@@ -1,0 +1,10 @@
+auth:
+  demo:
+    name: "ping"
+    method: GET
+    version: 1.0
+    path: "/ping"
+    auth: true
+    summary: "这是一个测试的"
+    description: "test"
+

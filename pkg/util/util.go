@@ -2,14 +2,20 @@ package util
 
 import (
 	"fmt"
+	"math/rand"
 	"path/filepath"
 	"reflect"
+	"time"
 
 	"github.com/goinggo/mapstructure"
 
 	uuid "github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
 )
+
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
 
 // 生成uuid
 func GenUuid(mark string) string {
@@ -22,6 +28,21 @@ func GenUuid(mark string) string {
 // uuid
 func GenShortUuid() string {
 	return uuid.NewV4().String()
+}
+
+// 生成随机字符串
+func GenRandStr(mark string, n int) string {
+	var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	if mark == "" {
+		return string(b)
+	}
+
+	return fmt.Sprintf("%s-%s", mark, string(b))
 }
 
 // bcrypt
@@ -62,5 +83,16 @@ func Ext(path string) string {
 
 // cache key
 func GetCacheKey(topic, mark string) string {
-	return fmt.Sprintf("%s@%d", topic, mark)
+	return fmt.Sprintf("%s@%s", topic, mark)
+}
+
+// ParseToStr 将map中的键值对输出成querystring形式
+func ParseToStr(mp map[string]string) string {
+	values := ""
+	for key, val := range mp {
+		values += "&" + key + "=" + val
+	}
+	temp := values[1:]
+	values = "?" + temp
+	return values
 }

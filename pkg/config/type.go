@@ -7,14 +7,14 @@ type ServerConfig struct {
 	APIPrefix   string `json:"apiPrefix"`
 	Port        string `json:"port"`
 	JwtSecret   string `json:"jwtSecret"`
-	TokenMaxAge string `json:"tokenMaxAge"`
+	TokenMaxAge int `json:"tokenMaxAge"`
 }
 
 // db
 type DBConfig struct {
 	Dialect      string `json:"dialect"`
 	Database     string `json:"database"`
-	User         string `json:"user"`
+	User         string `json:"auth"`
 	Password     string `json:"password"`
 	Host         string `json:"host"`
 	Port         int    `json:"port"`

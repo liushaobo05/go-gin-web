@@ -19,7 +19,7 @@ var DB *gorm.DB
 var RedisPool *redis.Pool
 
 // MongoDB 数据库连接
-// var MongoDB *mgo.Database
+//var MongoDB *mgo.Database
 
 func initDB() {
 	var (
@@ -55,6 +55,10 @@ func initRedis() {
 		redisCfg = config.RedisCfg
 	)
 
+	if redisCfg.URL == "" {
+		redisCfg.URL = fmt.Sprintf("%s:%d", redisCfg.Host, redisCfg.Port)
+	}
+
 	RedisPool = &redis.Pool{
 		MaxIdle:     redisCfg.MaxIdle,
 		MaxActive:   redisCfg.MaxActive,
@@ -73,19 +77,19 @@ func initRedis() {
 /*
  * mgo文档 http://labix.org/mgo
  */
-// func initMongo() {
-// 	if config.MongoConfig.URL == "" {
-// 		return
-// 	}
-// 	session, err := mgo.Dial(config.MongoConfig.URL)
-// 	if err != nil {
-// 		fmt.Println(err.Error())
-// 		os.Exit(-1)
-// 	}
-// 	// Optional. Switch the session to a monotonic behavior.
-// 	session.SetMode(mgo.Monotonic, true)
-// 	MongoDB = session.DB(config.MongoConfig.Database)
-// }
+//func initMongo() {
+//	if config.MongoConfig.URL == "" {
+//		return
+//	}
+//	session, err := mgo.Dial(config.MongoConfig.URL)
+//	if err != nil {
+//		fmt.Println(err.Error())
+//		os.Exit(-1)
+//	}
+//	// Optional. Switch the session to a monotonic behavior.
+//	session.SetMode(mgo.Monotonic, true)
+//	MongoDB = session.DB(config.MongoConfig.Database)
+//}
 
 func Init() {
 	initDB()

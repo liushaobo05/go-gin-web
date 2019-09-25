@@ -1,49 +1,71 @@
 package middleware
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
 	"go-gin-web/pkg/util"
+	"go-gin-web/dao/cache"
+	"go-gin-web/pkg/config"
+	"go-gin-web/pkg/common"
+	"go-gin-web/model"
+	"net/http"
+	"github.com/gin-gonic/gin"
+	"go-gin-web/pkg/errMsg"
 )
 
-func getUser(c *gin.Context) (model.User, error) {
+var (
+	serverCfg = config.ServerCfg
+)
+
+func getUser(c *gin.Context) (string, error) {
+	tokenString := c.Request.Header.Get("xAuthToken")
+	if tokenString == "" {
+		return "", errors.New("未登录")
+	}
+
+	userId, err := util.ParseToken(tokenString, []byte(serverCfg.JwtSecret))
+	if err != nil {
+		fmt.Println("=====", err)
+		return "", err
+	}
+
+	// todo 优化
+	RedisConn := model.RedisPool.Get()
+	defer RedisConn.Close()
+
+	// 优化TODO (封装到service中)
+	loginUserKey := util.GetCacheKey("userLogin", userId)
+
+	userBytes, err := cache.Get(loginUserKey)
+	if err != nil {
+		return "", errors.New("未登录")
+	}
+
 	var user model.User
-	tokenString, cookieErr := c.Cookie("token")
-
-	if cookieErr != nil {
-		return user, errors.New("未登录")
+	bytesErr := json.Unmarshal(userBytes, &user)
+	if bytesErr != nil {
+		return "", errors.New("未登录")
 	}
 
-	if claims, err := util.ParseToken(tokenString, []byte(jwtSecret)); err != nil {
-		userID := int(claims["id"].(float64))
-		var err error
-		user, err = model.UserFromRedis(userID)
-		if err != nil {
-			return user, errors.New("未登录")
-		}
-		return user, nil
-	}
-
-	return user, errors.New("未登录")
+	return userId, nil
 }
 
 // SigninRequired 必须是登录用户
 func SigninRequired(c *gin.Context) {
 	// 初始化
 	var (
-		reqData = make(map[string]interface{}, 0)
-		// resObj  siginRes
-		resData gin.H
-		req     = common.Req{C: c}
 		res     = common.Res{C: c}
 	)
 
-	var user model.User
-	var err error
+	userId, err := getUser(c)
+	if err != nil {
+		res.SendJSON(http.StatusUnauthorized, errMsg.UNAUTHORIZED, err)
 
-	if user, err = getUser(c); err != nil {
-		SendErrJSON("未登录", model.ErrorCode.LoginTimeout, c)
+		c.Abort()
 		return
 	}
+
 	c.Set("userId", userId)
 	c.Next()
 }
