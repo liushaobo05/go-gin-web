@@ -78,7 +78,7 @@ func StructToMap(obj interface{}, mapData map[string]interface{}) {
 
 // 文件扩展名
 func Ext(path string) string {
-	return filepath.Ext(path)
+	return filepath.Ext(path)[1:]
 }
 
 // cache key

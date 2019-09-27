@@ -3,14 +3,15 @@ package auth
 import (
 	"encoding/json"
 	"fmt"
-	"go-gin-web/dao/userDao"
 	"go-gin-web/dao/cache"
+	"go-gin-web/dao/userDao"
 	"go-gin-web/model"
 	"go-gin-web/pkg/common"
 	"go-gin-web/pkg/config"
 	"go-gin-web/pkg/errMsg"
 	"go-gin-web/pkg/util"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,9 +21,9 @@ func SignIn(c *gin.Context) {
 	var (
 		reqData = make(map[string]interface{}, 0)
 		// resObj  siginRes
-		resData gin.H
-		req     = common.Req{C: c}
-		res     = common.Res{C: c}
+		resData   gin.H
+		req       = common.Req{C: c}
+		res       = common.Res{C: c}
 		serverCfg = config.ServerCfg
 	)
 
@@ -263,9 +264,9 @@ func CreateSecretKey(c *gin.Context) {
 
 	// 请求返回
 	resData = gin.H{
-		"name": reqData["name"].(string),
+		"name":   reqData["name"].(string),
 		"userId": secret.UserId,
-		"id": secret.Id,
+		"id":     secret.Id,
 		"Secret": secret.Secret,
 	}
 
@@ -297,7 +298,7 @@ func UpdateSecretKey(c *gin.Context) {
 	appId := reqData["appId"].(string)
 
 	params := map[string]interface{}{
-		"id": appId,
+		"id":     appId,
 		"userId": userId.(string),
 	}
 
@@ -317,14 +318,14 @@ func UpdateSecretKey(c *gin.Context) {
 	// 请求返回
 	resData = gin.H{
 		"userId": userId.(string),
-		"id": appId,
+		"id":     appId,
 	}
 
 	res.SendJSON(http.StatusOK, errMsg.SUCCESS, resData)
 }
 
 // 禁用AK
-func Forbidden(c *gin.Context) {
+func ForbiddenSecretKey(c *gin.Context) {
 	var (
 		reqData = make(map[string]interface{}, 0)
 		resData gin.H
@@ -348,7 +349,7 @@ func Forbidden(c *gin.Context) {
 	appId := reqData["appId"].(string)
 
 	params := map[string]interface{}{
-		"id": appId,
+		"id":     appId,
 		"userId": userId.(string),
 	}
 
@@ -368,7 +369,7 @@ func Forbidden(c *gin.Context) {
 	// 请求返回
 	resData = gin.H{
 		"userId": userId.(string),
-		"id": appId,
+		"id":     appId,
 	}
 
 	res.SendJSON(http.StatusOK, errMsg.SUCCESS, resData)

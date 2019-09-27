@@ -35,3 +35,30 @@ auth:
     auth: true
     summary: "用户退出"
     description: "用户退出"
+
+createSecretKey:
+    name: createSecretKey
+    method: POST
+    version: v1
+    path: /secretKey/CreateSecretKey
+    auth: true
+    summary: "用户退出"
+    description: "用户退出"
+
+updateSecretKey:
+    name: updateSecretKey
+    method: POST
+    version: v1
+    path: /secretKey/UpdateSecretKey
+    auth: true
+    summary: "用户退出"
+    description: "用户退出"
+
+forbiddenSecretKey:
+    name: forbiddenSecretKey
+    method: POST
+    version: v1
+    path: /secretKey/ForbiddenSecretKey
+    auth: true
+    summary: "用户退出"
+    description: "用户退出"

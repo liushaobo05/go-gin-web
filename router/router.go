@@ -27,9 +27,9 @@ func RouterV1(router *gin.Engine) {
 		api.POST("/signOut", middleware.SigninRequired, auth.SignOut)
 
 		// AK认证
-		api.POST("/secretKey/create", middleware.SigninRequired, auth.CreateSecretKey)
-		api.POST("/secretKey/update", middleware.SigninRequired, auth.UpdateSecretKey)
-		api.POST("/secretKey/forbidden", middleware.SigninRequired, auth.Forbidden)
+		// api.POST("/secretKey/createSecretKey", middleware.SigninRequired, auth.CreateSecretKey)
+		// api.POST("/secretKey/UpdateSecretKey", middleware.SigninRequired, auth.UpdateSecretKey)
+		// api.POST("/secretKey/ForbiddenSecretKey", middleware.SigninRequired, auth.ForbiddenSecretKey)
 		// api.GET("/secretKey/get", middleware.SigninRequired, auth.GetSecret)
 
 		// webhook
@@ -51,4 +51,7 @@ func RouterMount() {
 	Router("auth.sigin", auth.SignIn)
 	Router("auth.sigup", auth.SignUp)
 	Router("auth.sigout", auth.SignOut)
+	Router("auth.createSecretKey", auth.CreateSecretKey)
+	Router("auth.updateSecretKey", auth.UpdateSecretKey)
+	Router("auth.forbiddenSecretKey", auth.ForbiddenSecretKey)
 }
