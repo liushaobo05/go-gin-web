@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"go-gin-web/model"
 	"go-gin-web/pkg/config"
 	"go-gin-web/router"
@@ -50,14 +49,11 @@ func main() {
 	app.Use(gin.Recovery())
 
 	// 挂载路由
-	router.Router(app)
+	router.RouterMount()
 
-	data, err := router.NewApi("./router/router.yaml")
-	if err != nil {
-		fmt.Println("sdddsds", err)
-	}
+	// 加载
+	router.RouterLoad(app)
 
-	fmt.Printf("%+v\n", data)
 	// 定时任务开启
 	// todo
 

@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Router(router *gin.Engine) {
+func RouterV1(router *gin.Engine) {
 	var (
 		serverCfg = config.ServerCfg
 	)
@@ -43,4 +43,12 @@ func Router(router *gin.Engine) {
 		// 文章
 		//api.POST("/article", auth.SignIn)
 	}
+}
+
+// 挂载路由
+func RouterMount() {
+	Router("demo.test", demo.Ping)
+	Router("auth.sigin", auth.SignIn)
+	Router("auth.sigup", auth.SignUp)
+	Router("auth.sigout", auth.SignOut)
 }

@@ -1,10 +1,37 @@
-auth:
-  demo:
-    name: "ping"
+demo:
+  test:
+    name: ping
     method: GET
-    version: 1.0
-    path: "/ping"
+    version: v1
+    path: /ping
     auth: true
     summary: "这是一个测试的"
     description: "test"
 
+auth:
+  sigin:
+    name: sigin
+    method: POST
+    version: v1
+    path: /signIn
+    auth: true
+    summary: "用户登陆"
+    description: "用户登陆接口"
+
+  sigup:
+    name: sigup
+    method: POST
+    version: v1
+    path: /signUp
+    auth: true
+    summary: "用户注册"
+    description: "用户注册接口"
+
+  sigout:
+    name: sigout
+    method: POST
+    version: v1
+    path: /signOut
+    auth: true
+    summary: "用户退出"
+    description: "用户退出"

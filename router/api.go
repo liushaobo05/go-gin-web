@@ -39,13 +39,13 @@ var (
 
 // api
 type API struct {
-	Name        string
-	Version     string
-	Method      string
-	Path        string
-	Auth        bool
-	Summary     string
-	Description string
+	Name        string `yaml:name`
+	Version     string `yaml:version`
+	Method      string `yaml:method`
+	Path        string `yaml:path`
+	Auth        bool   `yaml:auth`
+	Summary     string `yaml:summary`
+	Description string `yaml:description`
 
 	// Request []*Request
 	// Responses []*Responses

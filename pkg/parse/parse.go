@@ -2,11 +2,11 @@ package parse
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"path"
 	"reflect"
+	"strings"
 
 	"github.com/BurntSushi/toml"
 	"github.com/pkg/errors"
@@ -27,8 +27,6 @@ func LoadFile(filePath string) (*Parser, error) {
 
 	ext := path.Ext(filePath)
 
-	fmt.Println("aaaaa", ext)
-
 	if ext == ".json" {
 		p.data, err = NewJson(byteStr)
 
@@ -41,6 +39,7 @@ func LoadFile(filePath string) (*Parser, error) {
 		if err != nil {
 			return p, err
 		}
+		// todo fixbug
 	} else if ext == ".toml" {
 		p.data, err = NewYaml(byteStr)
 
@@ -54,45 +53,53 @@ func LoadFile(filePath string) (*Parser, error) {
 	return p, nil
 }
 
-func NewFromReader(r io.Reader) (*Parser, error) {
+func NewFromReader(r io.Reader) (interface{}, error) {
 	p := new(Parser)
 	dec := json.NewDecoder(r)
 	err := dec.Decode(&p.data)
 	return p, err
 }
 
-func NewJson(body []byte) (*Parser, error) {
+func NewJson(body []byte) (interface{}, error) {
 	p := new(Parser)
 	err := p.UnmarshalJSON(body)
 	if err != nil {
 		return nil, err
 	}
-	return p, nil
+	return p.data, nil
 }
 
-func NewToml(body []byte) (*Parser, error) {
+func NewToml(body []byte) (interface{}, error) {
 	p := new(Parser)
 	if err := toml.Unmarshal(body, &p.data); err != nil {
 		return nil, err
 	}
 
-	return p, nil
+	return p.data, nil
 }
 
-func NewYaml(body []byte) (*Parser, error) {
+func NewYaml(body []byte) (interface{}, error) {
 	p := new(Parser)
 	if err := yaml.Unmarshal(body, &p.data); err != nil {
 		return nil, err
 	}
-	return p, nil
+	return p.data, nil
 }
 
 func (p *Parser) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&p.data)
 }
 
+func (p *Parser) MarshalYaml() ([]byte, error) {
+	return yaml.Marshal(&p.data)
+}
+
 func (p *Parser) UnmarshalJSON(bt []byte) error {
 	return json.Unmarshal(bt, &p.data)
+}
+
+func (p *Parser) UnmarshalYaml(bt []byte) error {
+	return yaml.Unmarshal(bt, &p.data)
 }
 
 // pretty
@@ -111,10 +118,11 @@ func (p *Parser) Get(key string) *Parser {
 }
 
 // getpath
-func (p *Parser) GetPath(path ...string) *Parser {
+func (p *Parser) GetPath(path string) *Parser {
 	jin := p
-	for _, p := range path {
-		jin = jin.Get(p)
+	r := strings.Split(path, ".")
+	for _, v := range r {
+		jin = jin.Get(v)
 	}
 	return jin
 }
@@ -218,14 +226,15 @@ func (p *Parser) array() ([]interface{}, error) {
 }
 
 // Map type asserts to `map`
-func (p *Parser) GetMap() (map[string]interface{}, error) {
+func (p *Parser) GetMap() (map[interface{}]interface{}, error) {
 	return p.Map()
 }
 
-func (p *Parser) Map() (map[string]interface{}, error) {
-	if m, ok := (p.data).(map[string]interface{}); ok {
+func (p *Parser) Map() (map[interface{}]interface{}, error) {
+	if m, ok := (p.data).(map[interface{}]interface{}); ok {
 		return m, nil
 	}
+
 	return nil, errors.New("type assertion to map[string]interface{} failed")
 }
 
@@ -234,12 +243,12 @@ func (p *Parser) GetValue() interface{} {
 }
 
 func (p *Parser) GetStruct(data interface{}) error {
-	bytes, err := p.MarshalJSON()
+	bytes, err := p.MarshalYaml()
 	if err != nil {
 		return err
 	}
 
-	err = json.Unmarshal(bytes, &data)
+	err = yaml.Unmarshal(bytes, data)
 	if err != nil {
 		return err
 	}
