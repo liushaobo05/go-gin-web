@@ -1,83 +1,128 @@
-package validate
+package main
 
 import (
-	"errors"
 	"fmt"
+	"go-gin-web/pkg/util"
+	"reflect"
 )
 
-type Validator struct {
-	data     map[string]string   //要校验的数据
-	rules    map[string]*vRule   //规则列表，key为字段名
-	messages map[string][]string //错误输出
+type Validate struct {
+	data interface{}
+	rule map[string]interface{}
+	msg string
 }
 
-type vRule struct {
-	required bool
-	vr       ValidateRuler
+// 创建对象
+func NewValidate(data interface{}, rule map[string]interface{}) *Validate {
+	return &Validate{
+		data: data,
+		rule: rule,
+	}
 }
 
-//校验规则接口，支持自定义规则
-type ValidateRuler interface {
-	Check(data string) error
+func (v *Validate) Check() string {
+	myContext := &Context{v}
+	validate := &ValidateExec{
+		F:   make(FilterFunc, 0),
+		Ctx: myContext,
+	}
+
+	for key, _ := range v.rule {
+		f := bakedInValidators[key]
+		validate.register(f)
+	}
+
+	validate.verify()
+
+    return validate.Ctx.msg
 }
 
-//内置规则结构，实现ValidateRuler接口
-type normalRule struct {
-	key      string
-	dataType string
-	rules    []string
+type Context struct {
+	*Validate
 }
 
-//创建校验器对象
-func NewValidator(data interface{}) *Validator {
-	v := &Validator{data: data}
-	v.rule = make(map[string]*vRule)
-	v.messages = make(map[string][]string)
-	return v
+type CheckFunc func(*Context) bool
+
+var bakedInValidators = map[string]CheckFunc{
+	"IsRequired": IsRequired,
+	"len":      Len,
+	"min":      Min,
+	"max":      Max,
 }
 
-//添加内置的校验规则
-func (v *Validator) AddRule(key string, required bool, dataType string, rules ...string) {
-	nr := &normalRule{key, dataType}
-	nr.rules = append(nr.rules, rules)
-	v.rule[key] = &vRule{nr, required} //默认required = true
+type FilterFunc []CheckFunc
+
+type ValidateExec struct {
+	F   FilterFunc
+	Ctx *Context
 }
 
-//执行检查
-func (v *Validator) Check() (errs map[string]error) {
-	errs = make(map[string]error)
-	for k, v := range v.rule {
-		data, exists := v.data[k]
-		if !exists { //无值
-			if v.required { //如果必填，报错
-				errs[k] = errors.New("data error: required field miss")
-			}
-		} else { //有值判断规则
-			if err := v.vr.Check(data); err != nil { //调用ValidateRuler接口的Check方法来检查
-				errs[k] = err
+func (e *ValidateExec) register(f CheckFunc) {
+	e.F = append(e.F, f)
+}
+
+func (e *ValidateExec) verify() {
+	for _, f := range e.F {
+		res := f(e.Ctx)
+		if res == false {
+			return
+		}
+	}
+}
+
+func IsRequired(ctx *Context) bool {
+    if ctx.rule["IsRequired"].(bool) {
+    	if util.IsEmpty(ctx.data) {
+			ctx.msg = "不能为空"
+			return false
+		}
+	}
+	return true
+}
+
+func Len(ctx *Context) bool {
+	flag := true
+	switch v := ctx.data.(type) {
+	case string:
+		flag = (len(v) == ctx.rule["len"].(int))
+	default:
+		{
+			refValue := reflect.ValueOf(v)
+			switch refValue.Kind() {
+			case reflect.Slice, reflect.Array, reflect.Map:
+				{
+					flag = (refValue.Len() == ctx.rule["len"].(int))
+				}
 			}
 		}
 	}
-	return errs
+
+	if !flag {
+       ctx.msg = "长度校验失败"
+       return false
+	}
+
+	return true
 }
 
-func (v *normalRule) Check(data string) (Err error) {
-	if v.params == "" {
-		Err = errors.New("rule error: params wrong of rule")
-		return
+func Max(ctx *Context) bool {
+	ctx.msg = "最大值check失败"
+	return true
+}
+
+func Min(ctx *Context) bool {
+	ctx.msg = "最小值check失败"
+	return false
+}
+
+func main() {
+	rule := map[string]interface{}{
+		"IsRequired": true,
+		"max": 5,
+		"min": 3,
 	}
-	switch v.rule {
-	case "string":
-		//字符串，根椐params判断长度的最大值和最小值
-	case "number":
-		//判断是否整数数字
-		//判断最大值和最小值是否在params指定的范围
-	case "list":
-		//判断值是否在params指定的列表
-	case "regular":
-		//是否符合正则表达式
-	default:
-		Err = errors.New(fmt.Sprintf("rule error: not support of rule=%s", v.rule))
-	}
-	return
+
+	v := NewValidate(12, rule)
+	errMsg := v.Check()
+	fmt.Println("==========", errMsg)
 }

@@ -3,7 +3,6 @@ package router
 import (
 	"go-gin-web/handler/auth"
 	"go-gin-web/handler/demo"
-	"go-gin-web/middleware"
 	"go-gin-web/pkg/config"
 
 	"github.com/gin-gonic/gin"
@@ -18,15 +17,6 @@ func RouterV1(router *gin.Engine) {
 
 	api := router.Group(apiPrefix)
 	{
-		// 示例
-		api.GET("/ping", middleware.SigninRequired, demo.Ping)
-
-		// 认证
-		api.POST("/signIn", auth.SignIn)
-		api.POST("/signUp", auth.SignUp)
-		api.POST("/signOut", middleware.SigninRequired, auth.SignOut)
-
-		// AK认证
 		// api.POST("/secretKey/createSecretKey", middleware.SigninRequired, auth.CreateSecretKey)
 		// api.POST("/secretKey/UpdateSecretKey", middleware.SigninRequired, auth.UpdateSecretKey)
 		// api.POST("/secretKey/ForbiddenSecretKey", middleware.SigninRequired, auth.ForbiddenSecretKey)

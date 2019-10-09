@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-gin-web/middleware"
 	"go-gin-web/model"
 	"go-gin-web/pkg/config"
 	"go-gin-web/router"
@@ -47,6 +48,8 @@ func main() {
 
 	// Recovery middleware recovers from any panics and writes a 500 if there was one
 	app.Use(gin.Recovery())
+
+	app.Use(middleware.RequestId())
 
 	// 挂载路由
 	router.RouterMount()

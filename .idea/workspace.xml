@@ -2,19 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fd544f29-7d37-4d30-b66b-4e247445c522" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/conf/router.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dao/cache/cache.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handler/hook/hook.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/httputil/httputil.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/userDao/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/userDao/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handler/user/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/handler/auth/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/config/type.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/config/type.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/util/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/util.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/httputil/httputil.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/httputil/httputil.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/conv.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/conv.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/validate/validate.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/validate/validate.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/router.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,18 +31,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pkg/validate/validate.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="798">
+              <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+              <folding>
+                <element signature="n#!!block;n#NewValidate#0" />
+                <element signature="n#!!block;n#Check#0" />
+                <element signature="e#569#590#0" />
+                <element signature="e#672#756#0" />
+                <element signature="e#805#845#0" />
+                <element signature="n#!!block;n#register#0" />
+                <element signature="n#!!block;n#verify#0" />
+                <element signature="n#!!block;n#IsRequired#0" />
+                <element signature="n#!!block;n#Len#0" />
+                <element signature="n#!!block;n#Max#0" />
+                <element signature="n#!!block;n#Min#0" />
+                <element signature="n#!!block;n#main#1" />
+              </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/conf/router.yaml">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -98,6 +99,8 @@
         <option value="$PROJECT_DIR$/handler/hook/hook.go" />
         <option value="$PROJECT_DIR$/conf/router.yaml.go" />
         <option value="$PROJECT_DIR$/conf/router.yaml" />
+        <option value="$PROJECT_DIR$/pkg/util/conv.go" />
+        <option value="$PROJECT_DIR$/pkg/validate/validate.go" />
       </list>
     </option>
   </component>
@@ -134,7 +137,19 @@
             <path>
               <item name="go-gin-web" type="b2602c69:ProjectViewProjectNode" />
               <item name="go-gin-web" type="462c0819:PsiDirectoryNode" />
-              <item name="conf" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go-gin-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go-gin-web" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="go-gin-web" type="b2602c69:ProjectViewProjectNode" />
+              <item name="go-gin-web" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="validate" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -145,6 +160,7 @@
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
@@ -166,6 +182,21 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="go build validate.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="go-gin-web" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/pkg/validate/validate.go" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build validate.go" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -177,11 +208,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="17" y="23" width="1405" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14380044" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14600147" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" weight="0.39617833" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3299363" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -192,8 +223,9 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3299363" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3299363" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3299363" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Database Console" order="12" weight="0.39617833" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -202,6 +234,18 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/pkg/validate/validate.go</url>
+          <line>124</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/c725fc6f-d418-4ecf-95fd-03107adfddf5/console.sql">
@@ -224,23 +268,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/handler/demo/demo_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-          <folding>
-            <element signature="e#14#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/handler/user/user_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/handler/demo/demo_test.go" />
+    <entry file="file://$PROJECT_DIR$/handler/user/user_test.go" />
     <entry file="file://$PROJECT_DIR$/pkg/httputil/httputil.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
@@ -253,13 +282,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/test.http">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test/test.http" />
     <entry file="file://$PROJECT_DIR$/pkg/errMsg/code.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -413,15 +436,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+    <entry file="file:///usr/local/Cellar/go/1.12.7/libexec/src/runtime/proc.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="21">
+          <caret line="208" selection-start-line="208" selection-end-line="208" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/util/conv.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="401" column="3" lean-forward="true" selection-start-line="401" selection-start-column="3" selection-end-line="401" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!block;n#IsEmpty#0" />
+            <element signature="e#1056#1109#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/conf/router.yaml">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/validate/validate.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+          <folding>
+            <element signature="n#!!block;n#NewValidate#0" />
+            <element signature="n#!!block;n#Check#0" />
+            <element signature="e#569#590#0" />
+            <element signature="e#672#756#0" />
+            <element signature="e#805#845#0" />
+            <element signature="n#!!block;n#register#0" />
+            <element signature="n#!!block;n#verify#0" />
+            <element signature="n#!!block;n#IsRequired#0" />
+            <element signature="n#!!block;n#Len#0" />
+            <element signature="n#!!block;n#Max#0" />
+            <element signature="n#!!block;n#Min#0" />
+            <element signature="n#!!block;n#main#1" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
