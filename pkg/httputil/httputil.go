@@ -6,10 +6,12 @@ import (
 	"go-gin-web/pkg/util"
 	"io/ioutil"
 	"net/http/httptest"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Get 根据特定请求uri，发起get请求返回响应
-func Get(uri string, router *gin.Engine) []byte {
+func Get(uri string, router *gin.Engine) (int, []byte) {
 	// 构造get请求
 	req := httptest.NewRequest("GET", uri, nil)
 
@@ -25,7 +27,8 @@ func Get(uri string, router *gin.Engine) []byte {
 
 	// 读取响应body
 	body, _ := ioutil.ReadAll(result.Body)
-	return body
+
+	return result.StatusCode, body
 }
 
 // PostForm 根据特定请求uri和参数param，以表单形式传递参数，发起post请求返回响应

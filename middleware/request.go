@@ -2,6 +2,8 @@ package middleware
 
 import (
 	"go-gin-web/pkg/util"
+
+	"github.com/gin-gonic/gin"
 )
 
 func RequestId() gin.HandlerFunc {
@@ -18,6 +20,7 @@ func RequestId() gin.HandlerFunc {
 
 		// Set X-Request-Id header
 		c.Writer.Header().Set("X-Request-Id", requestId)
+
 		c.Next()
 	}
 }

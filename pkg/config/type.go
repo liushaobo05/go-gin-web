@@ -6,8 +6,9 @@ type ServerConfig struct {
 	SiteName    string `json:"siteName"`
 	APIPrefix   string `json:"apiPrefix"`
 	Port        string `json:"port"`
+	Domain      string `json:"domain"`
 	JwtSecret   string `json:"jwtSecret"`
-	TokenMaxAge int `json:"tokenMaxAge"`
+	TokenMaxAge int    `json:"tokenMaxAge"`
 }
 
 // db
