@@ -17,6 +17,7 @@ func RouterMount() {
 	Router("auth.sigin", auth.SignIn)
 	Router("auth.sigup", auth.SignUp)
 	Router("auth.sigout", auth.SignOut)
+	Router("auth.userInfo", auth.GetUserInfo)
 	Router("auth.createSecretKey", auth.CreateSecretKey)
 	Router("auth.updateSecretKey", auth.UpdateSecretKey)
 	Router("auth.forbiddenSecretKey", auth.ForbiddenSecretKey)

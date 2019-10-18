@@ -24,6 +24,11 @@ var MyCfg DBConfig
 // redis
 var RedisCfg RedisConfig
 
+// cors
+var CorsCfg CorsConfig
+
+var RateCfg RateConfig
+
 func Init(path string) error {
 	c := cfg{
 		Name: path,
@@ -72,7 +77,9 @@ func (c *cfg) watchConfig() {
 // 解析配置
 func (c *cfg) parse() {
 	viper.Unmarshal(&Cfg)
-	viper.UnmarshalKey("server", &ServerCfg) // 将配置解析到server变量
-	viper.UnmarshalKey("mysql", &MyCfg)      // 将配置解析到mysql变量
-	viper.UnmarshalKey("redis", &RedisCfg)   // 将配置解析到redis变量
+	viper.UnmarshalKey("server", &ServerCfg)    // 将配置解析到server变量
+	viper.UnmarshalKey("mysql", &MyCfg)         // 将配置解析到mysql变量
+	viper.UnmarshalKey("redis", &RedisCfg)      // 将配置解析到redis变量
+	viper.UnmarshalKey("cors", &CorsCfg)        // 将配置解析到cors变量
+	viper.UnmarshalKey("rateLimiter", &RateCfg) // 将配置解析到rateLimiter变量
 }

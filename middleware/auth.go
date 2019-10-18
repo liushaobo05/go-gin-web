@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"go-gin-web/pkg/util"
 	"go-gin-web/dao/cache"
-	"go-gin-web/pkg/config"
-	"go-gin-web/pkg/common"
 	"go-gin-web/model"
-	"net/http"
-	"github.com/gin-gonic/gin"
+	"go-gin-web/pkg/common"
+	"go-gin-web/pkg/config"
 	"go-gin-web/pkg/errMsg"
+	"go-gin-web/pkg/util"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -55,7 +56,7 @@ func getUser(c *gin.Context) (string, error) {
 func SigninRequired(c *gin.Context) {
 	// 初始化
 	var (
-		res     = common.Res{C: c}
+		res = common.Res{C: c}
 	)
 
 	userId, err := getUser(c)
@@ -69,3 +70,16 @@ func SigninRequired(c *gin.Context) {
 	c.Set("userId", userId)
 	c.Next()
 }
+
+// 刷新token
+// func RefreshTokenCookie(c *gin.Context) {
+// 	tokenString, err := c.Cookie("token")
+// 	fmt.Println(err)
+// 	if tokenString != "" && err == nil {
+// 		c.SetCookie("token", tokenString, 3600, "/", "", true, true)
+// 		if userId, err := getUser(c); err == nil {
+// 			// model.UserToRedis(user)
+// 		}
+// 	}
+// 	c.Next()
+// }

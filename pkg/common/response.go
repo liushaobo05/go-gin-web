@@ -49,3 +49,14 @@ func (res *Res) Redirect(nextURL string) {
 
 	return
 }
+
+// 返回错误
+func (res *Res) SendError(err error) {
+	res.C.JSON(http.StatusInternalServerError, Response{
+		Code:    errMsg.ERROR,
+		Message: errMsg.GetMsg(errMsg.ERROR),
+		Data:    err,
+	})
+
+	return
+}

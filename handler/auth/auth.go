@@ -149,16 +149,17 @@ func SignUp(c *gin.Context) {
 	}
 
 	var user model.User
-	if err := model.DB.Where("username = ? OR email = ? OR phone= ?", reqData["username"].(string), reqData["email"].(string), reqData["phone"].(string)).Find(&user).Error; err == nil {
-		resData = gin.H{
-			"username": reqData["username"].(string),
-			"email":    reqData["email"].(string),
-			"phone":    reqData["phone"].(string),
-		}
+	// if err := model.DB.Where("username = ? OR email = ? OR phone= ?", reqData["username"].(string), reqData["email"].(string), reqData["phone"].(string)).Find(&user).Error; err != nil {
+	// 	resData = gin.H{
+	// 		"username": reqData["username"].(string),
+	// 		"email":    reqData["email"].(string),
+	// 		"phone":    reqData["phone"].(string),
+	// 	}
+	// 	fmt.Println("查询", err)
 
-		res.SendJSON(http.StatusInternalServerError, errMsg.ERROR, resData)
-		return
-	}
+	// 	res.SendJSON(http.StatusInternalServerError, errMsg.ERROR, resData)
+	// 	return
+	// }
 
 	user.Id = util.GenShortUuid()
 	user.Username = reqData["username"].(string)
@@ -174,7 +175,7 @@ func SignUp(c *gin.Context) {
 			"phone":    reqData["phone"].(string),
 		}
 
-		res.SendJSON(http.StatusInternalServerError, errMsg.ERROR, resData)
+		res.SendJSON(http.StatusInternalServerError, errMsg.ERROR, err)
 		return
 	}
 
@@ -219,6 +220,59 @@ func SignOut(c *gin.Context) {
 	// 请求返回
 	resData = gin.H{
 		"id": userId,
+	}
+
+	res.SendJSON(http.StatusOK, errMsg.SUCCESS, resData)
+}
+
+// 用户信息
+func GetUserInfo(c *gin.Context) {
+	// 初始化
+	var (
+		// resObj  siginRes
+		resData gin.H
+		res     = common.Res{C: c}
+	)
+
+	userId, exists := c.Get("userId")
+	if !exists {
+		res.SendJSON(http.StatusUnauthorized, errMsg.UNAUTHORIZED, nil)
+		return
+	}
+
+	// 获取用户信息
+	var params = map[string]interface{}{
+		"id": userId,
+	}
+
+	user, err := userDao.GetUser(params)
+	if err != nil {
+		resData = gin.H{
+			"id": userId,
+		}
+
+		res.SendJSON(http.StatusInternalServerError, errMsg.ERROR, err)
+		return
+	}
+
+	// 获取用户角色
+	roles, err := userDao.GetRoles(userId.(string))
+	if err != nil {
+		resData = gin.H{
+			"id": userId,
+		}
+
+		res.SendJSON(http.StatusInternalServerError, errMsg.ERROR, err)
+		return
+	}
+
+	// 请求返回
+	resData = gin.H{
+		"id":           user.Id,
+		"username":     user.Username,
+		"avatar":       user.Avatar,
+		"introduction": user.Introduction,
+		"roles":        roles,
 	}
 
 	res.SendJSON(http.StatusOK, errMsg.SUCCESS, resData)

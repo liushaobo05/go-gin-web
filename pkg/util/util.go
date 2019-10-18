@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/goinggo/mapstructure"
-
 	uuid "github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
 )

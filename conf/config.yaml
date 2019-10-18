@@ -5,6 +5,7 @@ server:
   port: 9090
   domain: http://127.0.0.1:9090
   tokenMaxAge: 3600
+  cronTask: false
 
 mysql:
   dialect      : mysql
@@ -29,3 +30,24 @@ redis:
 logger:
   level: all
   logFile: log
+
+cors:
+  enable: true
+  allowOrigins:
+    - "*"
+  allowMethods:
+    - "GET"
+    - "POST"
+    - "PUT"
+    - "DELETE"
+  allowHeaders: []
+  allowCredentials: true
+  maxAge: 7200
+
+rateLimiter:
+  enable: true
+  count: 5
+
+
+
+

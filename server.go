@@ -3,12 +3,14 @@ package main
 import (
 	"errors"
 	"fmt"
+	"go-gin-web/cron"
 	"go-gin-web/middleware"
 	"go-gin-web/model"
 	"go-gin-web/pkg/config"
+	"go-gin-web/pkg/rateLimter"
+
 	"go-gin-web/pkg/httputil"
 	"go-gin-web/router"
-	"log"
 	"net/http"
 	"time"
 
@@ -17,19 +19,24 @@ import (
 )
 
 func init() {
-	// init config
+	// 通过环境变量读取
 	if err := config.Init("./conf/config.yaml"); err != nil {
 		log.Panic("load config failed", err)
 	}
 
 	// init db
 	model.Init()
+
+	model.DB.AutoMigrate(&model.User{})
+	model.DB.AutoMigrate(&model.Role{})
+	model.DB.AutoMigrate(&model.UserRole{})
 }
 
 func main() {
 	var (
 		serverCfg = config.ServerCfg
 		domain    = serverCfg.Domain
+		rateCfg   = config.RateCfg
 	)
 
 	if serverCfg.Env == "prod" {
@@ -44,15 +51,25 @@ func main() {
 	// Recovery middleware recovers from any panics and writes a 500 if there was one
 	app.Use(gin.Recovery())
 
-	app.Use(middleware.RequestId())
+	app.NoMethod(middleware.NoMethodHandler())
+	app.NoRoute(middleware.NoRouteHandler())
 
-	// 控制台日志中间件
-	app.Use(middleware.LoggerToConsole())
+	app.Use(middleware.TraceId())
+
+	// Set a lower memory limit for multipart forms (default is 32 MiB)
+	app.MaxMultipartMemory = 3 << 20 // 3 MiB
+
+	app.Use(gin.Logger())
+
+	// 跨域设置
+	app.Use(middleware.Cors())
+
+	// 限流
+	rateLimter := rateLimter.NewRateLimiter(1*time.Second, rateCfg.Count)
+	app.Use(middleware.RateLimiter(rateLimter))
 
 	// 日志文件中间件
-	app.Use(middleware.LoggerToConsole())
-
-	// 请求日志落库
+	// app.Use(middleware.LoggerToConsole())
 
 	// 挂载路由
 	router.RouterMount()
@@ -76,7 +93,9 @@ func main() {
 	}()
 
 	// 定时任务开启
-	// todo
+	if serverCfg.CronTask {
+		cron.New().Start()
+	}
 
 	// 启动服务
 	app.Run(":" + serverCfg.Port)

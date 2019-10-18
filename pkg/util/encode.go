@@ -6,6 +6,18 @@ import (
 	"encoding/base64"
 	"encoding/binary"
 	"math"
+
+	jsoniter "github.com/json-iterator/go"
+)
+
+// 定义JSON操作
+var (
+	json              = jsoniter.ConfigCompatibleWithStandardLibrary
+	JSONMarshal       = json.Marshal
+	JSONUnmarshal     = json.Unmarshal
+	JSONMarshalIndent = json.MarshalIndent
+	JSONNewDecoder    = json.NewDecoder
+	JSONNewEncoder    = json.NewEncoder
 )
 
 func Encode(str string) string {
@@ -208,4 +220,13 @@ func fillUpSize(b []byte, l int) []byte {
 		c = append(c, 0x00)
 	}
 	return c
+}
+
+// JSONMarshalToString JSON编码为字符串
+func JSONMarshalToString(v interface{}) string {
+	s, err := jsoniter.MarshalToString(v)
+	if err != nil {
+		return ""
+	}
+	return s
 }

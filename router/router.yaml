@@ -23,9 +23,18 @@ auth:
         method: POST
         version: v1
         path: /signUp
-        auth: true
+        auth: false
         summary: "用户注册"
         description: "用户注册接口"
+
+    userInfo:
+        name: userInfo
+        method: GET
+        version: v1
+        path: /user/info
+        auth: true
+        summary: "获取用户信息"
+        description: "获取用户信息"
 
     sigout:
         name: sigout

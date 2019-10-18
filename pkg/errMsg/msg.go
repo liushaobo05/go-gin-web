@@ -1,11 +1,12 @@
 package errMsg
 
 var MsgFlags = map[int]string{
-	SUCCESS:        "ok",
-	ERROR:          "fail",
+	SUCCESS:        "成功",
+	ERROR:          "失败",
 	INVALID_PARAMS: "请求参数错误",
-	MANY_REQUESTS:  "太多的请求",
 	UNAUTHORIZED:   "鉴权失败",
+	MANYREQUESTS:   "触发限流",
+	PageNotFound:   "404 page not found",
 }
 
 func GetMsg(code int) string {
