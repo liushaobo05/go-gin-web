@@ -1,0 +1,56 @@
+demo:
+    test:
+        name: ping
+        tag:
+            - demo
+        method: GET
+        version: v1
+        path: /ping
+        auth: false
+        summary: "这是一个测试的"
+        description: "test"
+
+auth:
+    sigin:
+        name: sigin
+        method: POST
+        version: v1
+        path: /signIn
+        response: json
+        auth: false
+        summary: "用户登陆"
+        description: "用户登陆接口"
+        params: body
+          signIn:
+            username:
+              $desc      : Username
+              $isRequired: true
+              $type      : string
+              $example   : admin
+            password:
+              $desc      : Password
+              $isRequired: true
+              $type      : string
+              $example   : 'Abc123'
+
+    sigup:
+        name: sigup
+        method: POST
+        version: v1
+        path: /signUp
+        auth: false
+
+        summary: "用户注册"
+        description: "用户注册接口"
+        params:
+          signIn:
+            username:
+              $desc      : Username
+              $isRequired: true
+              $type      : string
+              $example   : admin
+            password:
+              $desc      : Password
+              $isRequired: true
+              $type      : string
+              $example   : 'Abc123'

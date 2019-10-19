@@ -63,6 +63,7 @@ func main() {
 
 	// 跨域设置
 	app.Use(middleware.Cors())
+	// app.Use(middleware.CorsHandler())
 
 	// 限流
 	rateLimter := rateLimter.NewRateLimiter(1*time.Second, rateCfg.Count)

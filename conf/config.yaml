@@ -40,8 +40,10 @@ cors:
     - "POST"
     - "PUT"
     - "DELETE"
-  allowHeaders: []
-  allowCredentials: true
+    - "OPTIONS"
+  allowHeaders:
+    - "*"
+  allowCredentials: false
   maxAge: 7200
 
 rateLimiter:

@@ -4,16 +4,6 @@ import (
 	"go-gin-web/model"
 )
 
-type User struct {
-	UserID string
-	Roles  Roles `gorm:"many2many:tb_main_user_role:"`
-}
-
-type Roles struct {
-	id   string
-	Name string
-}
-
 // 获取用户信息
 func GetUser(params map[string]interface{}) (model.User, error) {
 	var user model.User
@@ -25,26 +15,16 @@ func GetUser(params map[string]interface{}) (model.User, error) {
 	return user, nil
 }
 
-func GetRoles(userId string) ([]string, error) {
+func GetRoles(userId string) (string, error) {
 	var (
-		rolesStr []string
-
-		user = &User{
-			UserID: userId,
-		}
-
-		roles []Roles
+		role string
 	)
 
-	if err := model.DB.Model(&user).Related(&roles, "tb_main_role").Error; err != nil {
-		return nil, err
-	}
+	row := model.DB.Raw("SELECT role.name from tb_main_role role left join tb_main_user_role user on role.id = user.roleId where user.userId = ?", userId).Row()
 
-	for _, role := range roles {
-		rolesStr = append(rolesStr, role.Name)
-	}
+	row.Scan(&role)
 
-	return rolesStr, nil
+	return role, nil
 }
 
 // 添加用户

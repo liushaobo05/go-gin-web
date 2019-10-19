@@ -256,7 +256,7 @@ func GetUserInfo(c *gin.Context) {
 	}
 
 	// 获取用户角色
-	roles, err := userDao.GetRoles(userId.(string))
+	role, err := userDao.GetRoles(userId.(string))
 	if err != nil {
 		resData = gin.H{
 			"id": userId,
@@ -272,7 +272,7 @@ func GetUserInfo(c *gin.Context) {
 		"username":     user.Username,
 		"avatar":       user.Avatar,
 		"introduction": user.Introduction,
-		"roles":        roles,
+		"roles":        role,
 	}
 
 	res.SendJSON(http.StatusOK, errMsg.SUCCESS, resData)

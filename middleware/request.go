@@ -6,6 +6,7 @@ import (
 	"go-gin-web/pkg/errMsg"
 	"go-gin-web/pkg/rateLimter"
 	"go-gin-web/pkg/util"
+	"time"
 
 	"github.com/gin-contrib/cors"
 
@@ -39,15 +40,15 @@ func Cors() gin.HandlerFunc {
 		}
 	}
 
-	return cors.Default()
+	// return cors.Default()
 
-	// return cors.New(cors.Config{
-	// 	AllowOrigins:     corsCfg.AllowOrigins,
-	// 	AllowMethods:     corsCfg.AllowMethods,
-	// 	AllowHeaders:     corsCfg.AllowHeaders,
-	// 	AllowCredentials: corsCfg.AllowCredentials,
-	// 	MaxAge:           time.Second * time.Duration(corsCfg.MaxAge),
-	// })
+	return cors.New(cors.Config{
+		AllowOrigins:     corsCfg.AllowOrigins,
+		AllowMethods:     corsCfg.AllowMethods,
+		AllowHeaders:     corsCfg.AllowHeaders,
+		AllowCredentials: corsCfg.AllowCredentials,
+		MaxAge:           time.Second * time.Duration(corsCfg.MaxAge),
+	})
 }
 
 // 限流

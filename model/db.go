@@ -91,6 +91,10 @@ func initRedis() {
 //	MongoDB = session.DB(config.MongoConfig.Database)
 //}
 
+func initInfluxDB() {
+
+}
+
 func Init() {
 	initDB()
 	initRedis()

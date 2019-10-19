@@ -1,0 +1,26 @@
+{{ define "index" }}
+{{ template "meta"}}
+paths:
+  {{ range . }}
+  {{.Path}}:
+    {{.Method}}:
+      tags:
+      - {{.Tag}}
+      summary: {{.Summary}}
+      description: {{.Description}}
+      operationId: "addPet"
+      produces:
+      - {{.ContentType}}
+      parameters:
+      - in: {{.Type}}
+        name: "data"
+        description: {{.Comment}}
+        required: {{.Required}}
+        type: {{.DataType}}
+        items:
+          type: string
+      responses:
+        200:
+          description: "successful operation"
+      {{ end }}
+{{ end }}
