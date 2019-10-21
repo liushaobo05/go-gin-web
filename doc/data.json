@@ -1,0 +1,8 @@
+{ sigin:
+   { name: 'sigin',
+     method: 'POST',
+     version: 'v1',
+     path: '/signIn',
+     auth: false,
+     summary: '用户登陆',
+     description: '用户登陆接口' } }

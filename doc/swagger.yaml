@@ -1,26 +1,34 @@
 {{ define "index" }}
 {{ template "meta"}}
 paths:
-  {{ range . }}
-  {{.Path}}:
-    {{.Method}}:
+  /pet:
+    post:
       tags:
-      - {{.Tag}}
-      summary: {{.Summary}}
-      description: {{.Description}}
+      - "pet"
+      summary: "Add a new pet to the store"
+      description: ""
       operationId: "addPet"
+      consumes:
+      - "application/json"
+      - "application/xml"
       produces:
-      - {{.ContentType}}
+      - "application/xml"
+      - "application/json"
       parameters:
-      - in: {{.Type}}
-        name: "data"
-        description: {{.Comment}}
-        required: {{.Required}}
-        type: {{.DataType}}
-        items:
-          type: string
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+          type: "object"
+          properties:
+              username:
+                type: "string"
+                example: "admin"
+              password:
+                type: "string"
+                example: "111111"
       responses:
-        200:
-          description: "successful operation"
-      {{ end }}
+        405:
+          description: "Invalid input"
 {{ end }}

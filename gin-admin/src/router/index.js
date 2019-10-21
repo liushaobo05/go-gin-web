@@ -80,7 +80,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '管理后台', icon: 'dashboard' }
+        meta: { title: '容器云平台', icon: 'dashboard' }
       }
     ]
   },
