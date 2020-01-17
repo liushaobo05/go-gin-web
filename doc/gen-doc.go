@@ -35,32 +35,32 @@ type API struct {
 	Version     string `yaml:"version"`
 	Path        string `yaml:"path"`
 	Auth        bool   `yaml:"auth"`
-	Summary     string `yaml:"summary,omitempty"`
-	Description string `yaml:"description,omitempty"`
-	Params      Parmas `yaml:"parmas,omitempty"`
+	Summary     string `yaml:"summary"`
+	Description string `yaml:"description"`
+	Params      Parmas `yaml:"params"`
 }
 
 // 请求参数
 type Parmas struct {
-	Query  Query  `yaml:"query,omitempty"`
-	Header Header `yaml:"header,omitempty"`
-	Body   Body   `yaml:"body,omitempty"`
+	Query  Query  `yaml:"query"`
+	Header Header `yaml:"header"`
+	Body   Body   `yaml:"body"`
 }
 
 type Header struct {
-	Items []Items `yaml:"items,omitempty"`
+	Items []Items `yaml:"items"`
 }
 
 type Query struct {
-	Items []Items `yaml:"items,omitempty"`
+	Items []Items `yaml:"items"`
 }
 
 type Items struct {
-	Name     string `yaml:"name,omitempty"`
-	Value    string `yaml:"value,omitempty"`
-	Desc     string `yaml:"desc,omitempty"`
-	Default  string `yaml:"default,omitempty"`
-	Required bool   `yaml:"required,omitempty"`
+	Name     string `yaml:"name"`
+	Value    string `yaml:"value"`
+	Desc     string `yaml:"desc"`
+	Default  string `yaml:"default"`
+	Required bool   `yaml:"required"`
 }
 
 type Body struct {
@@ -69,40 +69,49 @@ type Body struct {
 
 // Param 表示参数类型
 type Param struct {
-	Type     string            `yaml:"type,omitempty"`
-	Example  string            `yaml:"example,omitempty"`
-	Required bool              `yaml:"required,omitempty"`
-	Items    map[string]*Param `yaml:"items,omitempty"`
-	Desc     string            `yaml:"desc,omitempty"`
+	Type     string           `yaml:"type"`
+	Example  string           `yaml:"example"`
+	Required bool             `yaml:"required"`
+	Items    map[string]Param `yaml:"items"`
+	Desc     string           `yaml:"desc"`
 }
 
 func NewApi(path string) (API, error) {
 	var api API
 
-	routerCfg, err := parse.LoadFile(path)
+	// byteStr, err := ioutil.ReadFile(path)
+	// if err != nil {
+	// 	return api, err
+	// }
+
+	// if err := yaml.Unmarshal(byteStr, &api); err != nil {
+	// 	return api, err
+	// }
+
+	data, err := parse.LoadFile(path)
 	if err != nil {
 		return api, err
 	}
+	// api := new(API)
+	err = data.Get("auth").Get("sigin").GetStruct(&api)
 
-	if err = routerCfg.GetPath("auth.sigin").GetStruct(&api); err != nil {
-		return api, err
-	}
+	fmt.Println("dddddddd", api)
 
 	return api, nil
 }
 
 func main() {
-	t, err := template.ParseFiles("./swagger.yaml", "./meta.tpl")
-	if err != nil {
-		fmt.Println("模版加载失败", err)
-		panic(err)
-	}
+	//t, err := template.ParseFiles("./swagger.tpl", "./meta.tpl")
+	//if err != nil {
+	//	fmt.Println("模版加载失败", err)
+	//	panic(err)
+	//}
 
-	data, _ := NewApi("./router.yaml")
+	data, _ := NewApi("demo.yaml")
 
 	fmt.Printf("ddddd========%+v", data)
 
-	if err = t.ExecuteTemplate(os.Stdout, "index", data); err != nil {
-		panic(err)
-	}
+	//if err = t.ExecuteTemplate(os.Stdout, "index", data); err != nil {
+	//	panic(err)
+	//}
 }

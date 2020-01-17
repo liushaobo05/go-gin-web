@@ -62,7 +62,8 @@ func main() {
 	app.Use(gin.Logger())
 
 	// 跨域设置
-	app.Use(middleware.Cors())
+	// app.Use(middleware.Cors())
+	app.Use(middleware.CorsHandler())
 	// app.Use(middleware.CorsHandler())
 
 	// 限流

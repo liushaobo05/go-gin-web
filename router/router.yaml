@@ -71,3 +71,58 @@ auth:
         auth: true
         summary: "用户退出"
         description: "用户退出"
+
+resource:
+    getNodeCount:
+        name: getNodeCount
+        method: GET
+        version: v1
+        path: /resource/nodes/count
+        auth: false
+        summary: "获取节点个数"
+        description: "获取节点个数"
+
+    listNodes:
+        name: listNodes
+        method: GET
+        version: v1
+        path: /resource/nodes/list
+        auth: false
+        summary: "获取节点列表"
+        description: "获取节点列表"
+
+    getPodCount:
+        name: getPodCount
+        method: GET
+        version: v1
+        path: /resource/pods/count
+        auth: false
+        summary: "获取节点个数"
+        description: "获取节点个数"
+
+    listPods:
+        name: listPods
+        method: GET
+        version: v1
+        path: /resource/pods/list
+        auth: false
+        summary: "获取pod列表"
+        description: "获取pod列表"
+
+    listNamespaces:
+        name: listNamespaces
+        method: GET
+        version: v1
+        path: /resource/namespaces/list
+        auth: false
+        summary: "获取命名空间列表"
+        description: "获取命名空间列表"
+
+    listDeployments:
+        name: listDeployment
+        method: GET
+        version: v1
+        path: /resource/deployments/list
+        auth: false
+        summary: "获取命名空间列表"
+        description: "获取命名空间列表"

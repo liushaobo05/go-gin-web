@@ -38,6 +38,7 @@ type API struct {
 	Auth        bool   `yaml:auth`
 	Summary     string `yaml:summary,omitempty`
 	Description string `yaml:description,omitempty`
+	// Params      Parmas `json:"params,omitempty"`
 }
 
 func NewApi(path string) (*API, error) {

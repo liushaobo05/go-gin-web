@@ -175,7 +175,7 @@ export const asyncRoutes = [
     redirect: '/article/list',
     name: 'Article',
     meta: {
-      title: '文章',
+      title: '主机',
       icon: 'education'
     },
     children: [

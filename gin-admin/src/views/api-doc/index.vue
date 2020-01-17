@@ -42,21 +42,21 @@
                                 ref="multipleTable"
                                 :data="tableData"
                                 tooltip-effect="dark"
-                                style="width: 100%"
+                                style="width: 500px"
                                 @selection-change="handleSelectionChange">
                                 <el-table-column
                                   type="selection"
-                                  width="55">
+                                  width="80px">
                                 </el-table-column>
                                 <el-table-column
                                   label="key"
-                                  width="120">
+                                  width="200px">
                                   <template slot-scope="scope">{{ scope.row.date }}</template>
                                 </el-table-column>
                                 <el-table-column
                                   prop="name"
                                   label="value"
-                                  width="120">
+                                  width="200px">
                                 </el-table-column>
                               </el-table>
                         </el-col>
@@ -83,27 +83,23 @@
                                     ref="multipleTable"
                                     :data="tableData"
                                     tooltip-effect="dark"
-                                    style="width: 100%"
+                                    style="width: 500px"
                                     @selection-change="handleSelectionChange">
                                     <el-table-column
                                       type="selection"
-                                      width="55">
+                                      width="80px">
                                     </el-table-column>
                                     <el-table-column
-                                      label="日期"
-                                      width="120">
+                                      label="key"
+                                      width="200px">
                                       <template slot-scope="scope">{{ scope.row.date }}</template>
                                     </el-table-column>
                                     <el-table-column
                                       prop="name"
-                                      label="姓名"
-                                      width="120">
+                                      label="value"
+                                      width="200px">
                                     </el-table-column>
-                                    <el-table-column
-                                      prop="address"
-                                      label="地址"
-                                      show-overflow-tooltip>
-                                    </el-table-column>
+                                    
                                   </el-table>
                             </el-col>
                     </el-row>
@@ -180,7 +176,8 @@
     }
 
     textarea {
-        background-color: #4c5264;
+        background-color: #4c5264 !important;
+        border: none !important;
     }
 </style>
   

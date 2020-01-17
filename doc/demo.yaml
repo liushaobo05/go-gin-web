@@ -1,12 +1,24 @@
-params:
-        body:
-            type: object
-            items:
-                username:
-                    type: string
-                    required: true
-                    desc: 用户名
-                password:
-                    type: string
-                    required: true
-                    desc: 密码
+auth:
+    sigin:
+        name: sigin
+        method: POST
+        version: v1
+        path: /signIn
+        auth: false
+        summary: 用户登陆
+        description: 用户登陆接口
+        params:
+            body:
+                type: object
+                items:
+                    username:
+                        type: string
+                        required: true
+                        desc: 用户名
+                        example: admin
+                    password:
+                        type: string
+                        required: true
+                        desc: 密码
+                        example: 111111
+

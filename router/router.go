@@ -3,6 +3,7 @@ package router
 import (
 	"go-gin-web/handler/auth"
 	"go-gin-web/handler/demo"
+	"go-gin-web/handler/resource"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,4 +22,10 @@ func RouterMount() {
 	Router("auth.createSecretKey", auth.CreateSecretKey)
 	Router("auth.updateSecretKey", auth.UpdateSecretKey)
 	Router("auth.forbiddenSecretKey", auth.ForbiddenSecretKey)
+	Router("resource.getNodeCount", resource.GetNodeCount)
+	Router("resource.listNodes", resource.ListNodes)
+	Router("resource.getPodCount", resource.GetPodCount)
+	Router("resource.listPods", resource.ListPods)
+	Router("resource.listNamespaces", resource.ListNamespaces)
+	Router("resource.listDeployments", resource.ListDeployments)
 }

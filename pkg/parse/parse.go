@@ -2,6 +2,7 @@ package parse
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"path"
@@ -247,6 +248,8 @@ func (p *Parser) GetStruct(data interface{}) error {
 	if err != nil {
 		return err
 	}
+
+	fmt.Println("解析", string(bytes))
 
 	err = yaml.Unmarshal(bytes, data)
 	if err != nil {
