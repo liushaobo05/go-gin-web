@@ -9,7 +9,6 @@ require (
 	github.com/garyburd/redigo v1.6.0
 	github.com/gin-contrib/cors v1.3.0
 	github.com/gin-gonic/gin v1.4.0
-	github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8
 	github.com/goinggo/mapstructure v0.0.0-20140717182941-194205d9b4a9
 	github.com/jinzhu/gorm v1.9.10
 	github.com/json-iterator/go v1.1.6
@@ -20,5 +19,5 @@ require (
 	github.com/spf13/viper v1.4.0
 	github.com/thedevsaddam/govalidator v1.9.8
 	golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
-	gopkg.in/yaml.v2 v2.2.2
+	gopkg.in/yaml.v2 v2.2.8
 )
